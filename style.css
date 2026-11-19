@@ -1,0 +1,655 @@
+/* ==========================================================================
+   TechEniac Digital Connect Screen - Pure HTML/CSS/JS (100% Offline)
+   Theme: Luminous Crisp White (#FFFFFF) & Electric Blue (#425EF9)
+   Typography: General Sans Offline Bundled Fonts
+   ========================================================================== */
+
+/* Offline General Sans Font Definitions */
+@font-face {
+  font-family: 'General Sans';
+  src: url('./fonts/GeneralSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('./fonts/GeneralSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('./fonts/GeneralSans-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('./fonts/GeneralSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Brand Core Colors */
+  --color-blue: #425EF9;
+  --color-blue-dark: #2445F0;
+  --color-blue-deep: #1633CE;
+  --color-blue-glow: rgba(66, 94, 249, 0.28);
+  --color-blue-subtle: rgba(66, 94, 249, 0.08);
+  --color-blue-badge: #EDF2FF;
+  --color-white: #FFFFFF;
+  
+  /* Text Colors */
+  --color-text-dark: #000921;
+  --color-text-label: #7C8BA6;
+  --color-text-muted: #536280;
+  
+  /* Surface & Cards */
+  --color-bg-base: #F4F7FD;
+  --color-card-bg: #FFFFFF;
+  --color-card-border: rgba(66, 94, 249, 0.08);
+  --radius-card: 14px;
+  
+  /* Shadows */
+  --shadow-card: 0 8px 22px -4px rgba(66, 94, 249, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+  --shadow-card-hover: 0 12px 30px -4px rgba(66, 94, 249, 0.16), 0 4px 12px rgba(66, 94, 249, 0.08);
+  
+  --font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-bg-base);
+  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F5F8FF 40%, #EAF1FF 100%);
+  color: var(--color-text-dark);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   App Wrapper & Layout Architecture
+   ========================================================================== */
+.app-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.content-container {
+  width: 100%;
+  max-width: 440px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(8px, 1.6vh, 16px) clamp(16px, 4vw, 24px) clamp(10px, 2vh, 18px);
+  position: relative;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   Header: Centered TechEniac Logo in Electric Blue
+   ========================================================================== */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(2px, 0.5vh, 6px) 0;
+  margin-bottom: clamp(6px, 1.2vh, 12px);
+  animation: fadeInDown 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.22s ease, opacity 0.2s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+.logo-img {
+  height: clamp(34px, 4.6vh, 42px);
+  width: auto;
+  display: block;
+  /* Logo is already #425EF9 in logos/logo.svg */
+}
+
+/* ==========================================================================
+   Tagline: Vertically Stacked "Think Build Grow"
+   ========================================================================== */
+.tagline-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 0 clamp(16px, 2.6vh, 24px);
+  user-select: none;
+}
+
+.tagline {
+  font-family: var(--font-family);
+  font-size: clamp(28px, 4.2vh, 36px);
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  line-height: 1.08;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+  margin: 0;
+}
+
+.tagline-word {
+  display: block;
+}
+
+.word-think {
+  color: var(--color-text-dark);
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+.word-build {
+  color: var(--color-blue);
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.20s both;
+}
+
+.word-grow {
+  color: var(--color-text-dark);
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+/* ==========================================================================
+   Base Card Style (Crisp White with Soft Glass Elevation)
+   ========================================================================== */
+.card {
+  display: flex;
+  text-decoration: none;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-2.5px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(66, 94, 249, 0.25);
+}
+
+.card:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Cards Layout: Hero Full-Width Card + 2-Column Pairs
+   ========================================================================== */
+.cards-layout-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 1.5vh, 12px);
+  width: 100%;
+}
+
+.cards-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(9px, 1.8vw, 12px);
+  width: 100%;
+}
+
+.card-full {
+  width: 100%;
+  min-height: clamp(62px, 8.2vh, 72px);
+  padding: clamp(13px, 1.8vh, 17px) clamp(14px, 3.2vw, 18px);
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
+}
+
+.card-grid-item {
+  width: 100%;
+  min-height: clamp(60px, 8vh, 70px);
+  padding: clamp(12px, 1.7vh, 16px) clamp(11px, 2.5vw, 14px);
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Staggered entrance animations */
+.cards-grid-row:nth-child(2) .card-grid-item:nth-child(1) {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.40s both;
+}
+.cards-grid-row:nth-child(2) .card-grid-item:nth-child(2) {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both;
+}
+.cards-grid-row:nth-child(3) .card-grid-item:nth-child(1) {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both;
+}
+.cards-grid-row:nth-child(3) .card-grid-item:nth-child(2) {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both;
+}
+.cards-grid-row:nth-child(4) .card-grid-item:nth-child(1) {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.64s both;
+}
+.cards-grid-row:nth-child(4) .card-grid-item:nth-child(2) {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.70s both;
+}
+
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 12px);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.icon-circle {
+  width: clamp(38px, 5vh, 44px);
+  height: clamp(38px, 5vh, 44px);
+  border-radius: 50%;
+  background: var(--color-blue-badge);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.22s ease, background 0.2s ease;
+}
+
+.card:hover .icon-circle {
+  transform: scale(1.06);
+  background: #E3EBFF;
+}
+
+.icon-circle svg {
+  width: clamp(19px, 2.5vh, 23px);
+  height: clamp(19px, 2.5vh, 23px);
+  display: block;
+}
+
+.card-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.micro-label {
+  font-size: clamp(9px, 1.25vh, 10.5px);
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--color-text-label);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-title {
+  font-size: clamp(13px, 1.8vh, 15px);
+  font-weight: 700;
+  color: var(--color-text-dark);
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-arrow {
+  color: var(--color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s ease;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+.card:hover .action-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   Animated Footer: Layered Fluid Waves, Floating Bubbles, Mascot & Address
+   ========================================================================== */
+.footer-wave-section {
+  position: relative;
+  width: 100%;
+  margin-top: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(110px, 16vh, 150px);
+}
+
+/* Waves container holding 3 layered SVGs */
+.waves-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  will-change: transform;
+}
+
+.wave-back {
+  animation: waveScrollBack 14s infinite ease-in-out alternate;
+  opacity: 0.85;
+}
+
+.wave-mid {
+  animation: waveScrollMid 10s infinite ease-in-out alternate-reverse;
+  opacity: 0.95;
+}
+
+.wave-front {
+  animation: waveScrollFront 8s infinite ease-in-out alternate;
+}
+
+@keyframes waveScrollBack {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-15%, -6px, 0); }
+  100% { transform: translate3d(-30%, 0, 0); }
+}
+
+@keyframes waveScrollMid {
+  0% { transform: translate3d(-25%, 0, 0); }
+  50% { transform: translate3d(-12%, -8px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes waveScrollFront {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-18%, -5px, 0); }
+  100% { transform: translate3d(-35%, 0, 0); }
+}
+
+/* Footer Address Content */
+.footer-content {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(16px, 4vw, 24px) clamp(14px, 2.5vh, 20px);
+}
+
+.footer-address-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 12px);
+  text-decoration: none;
+  color: var(--color-white);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  max-width: 440px;
+}
+
+.footer-address-link:hover {
+  opacity: 0.95;
+  transform: scale(1.02);
+}
+
+.pin-icon-box {
+  position: relative;
+  width: clamp(20px, 3vh, 24px);
+  height: clamp(20px, 3vh, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pin-svg {
+  width: 100%;
+  height: 100%;
+  fill: #FFFFFF;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Gentle pulsating ripple around the map pin */
+.pin-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  animation: pinPulseRing 2.8s infinite cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+@keyframes pinPulseRing {
+  0% { transform: scale(0.6); opacity: 1; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.address-text-lines {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(10.5px, 1.55vh, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: #FFFFFF;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.30);
+}
+
+.addr-line1, .addr-line2 {
+  white-space: normal;
+}
+
+/* ==========================================================================
+   Entrance Animations & Keyframes
+   ========================================================================== */
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.88);
+  }
+  70% {
+    transform: translateY(-2px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--color-text-dark);
+  border: 1px solid var(--color-blue);
+  color: #FFFFFF;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 12.5px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(66, 94, 249, 0.35);
+  z-index: 999;
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Splash Screen Styles (GSAP Offline Integration)
+   Backdrop: Electric Blue (#425EF9)
+   Bird: White (#FFFFFF)
+   ========================================================================== */
+#splash {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  touch-action: none;
+  overflow: hidden;
+}
+
+html[data-splash] {
+  overflow: hidden;
+}
+
+html[data-splash] #splash {
+  display: block;
+  animation: splash-failsafe 0.01s linear 12s forwards;
+}
+
+html[data-splash] header [data-site-logo] {
+  opacity: 0;
+  clip-path: inset(0 0 0 25.5%);
+  animation: splash-logo-failsafe 0.01s linear 12s forwards;
+}
+
+@keyframes splash-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes splash-logo-failsafe {
+  to {
+    opacity: 1;
+    clip-path: none;
+  }
+}
+
+.splash-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, #425EF9 0%, #2A48F3 60%, #152CA8 100%);
+  will-change: opacity;
+}
+
+.splash-bird-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(160px, 20vw, 240px);
+  aspect-ratio: 76.1 / 60;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+
+.splash-bird-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+
+/* Hold cards and tagline hidden while splash animation is running */
+html[data-splash]:not(.cards-animate) .tagline-word,
+html[data-splash]:not(.cards-animate) .card,
+html[data-splash]:not(.cards-animate) .footer-wave-section {
+  animation: splash-cards-failsafe 0.01s linear 12s forwards !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+@keyframes splash-cards-failsafe {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
