@@ -53,10 +53,15 @@ A mobile-first, responsive, non-scrollable digital connect web screen for **Tech
 
 ---
 
-## 🚀 How to Run Offline
-Open [index.html](file:///home/hetvi/Desktop/Hetvi/Projects/expo/withoutbubbles/index.html) directly in any browser:
+## 🚀 Development & Build
+
 ```bash
-google-chrome index.html
-# or with python
-python3 -m http.server 3000
+# Start development server
+npm run dev
+
+# Build for production (TypeScript + Vite)
+npm run build
+
+# Preview production build locally
+npm run preview
 ```
