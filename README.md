@@ -14,10 +14,10 @@ A mobile-first, responsive, non-scrollable digital connect web screen for **Tech
   - Cards & Labels: **Plus Jakarta Sans** (weights 400, 500) thin & clean typography so entire phone numbers and titles fit without truncation.
 - **Tagline**: Left-aligned stacked `Think` (`#000921`), `Build` (`#425EF9`), `Grow` (`#000921`) with enhanced letter spacing and punchy font size.
 - **Interactive Touch & Scrape Contrast Animation**:
-  - Upper white body: Touch/scrape creates dynamic glowing Electric Blue (`#425EF9`) fluid trails and ripples.
-  - Lower blue footer: Touch/scrape creates dynamic glowing Pure White (`#FFFFFF`) wave flares and ripples.
+  - Upper white body: Touch/scrape creates brisk, glowing Electric Blue (`#425EF9`) micro-bubbles and ripples with accelerated decay and response.
+  - Lower blue footer: Touch/scrape creates brisk, glowing Pure White (`#FFFFFF`) micro-bubbles and ripples.
   - Cards: Contrast radial spotlight tracking finger drag across cards.
-- **Background Watermark Birds**: Two TechEniac bird outlines positioned on top-right and bottom-left at 50% opacity, matching brand aesthetic.
+- **Background Watermark Birds**: User-provided `face.svg` (top-right head and neck contour) and `wing.svg` (bottom-left wing and tail contour) positioned flush at 50% opacity, accurately matching the brand design.
 - **LinkedIn Brand Asset**: Official, authentic rounded blue LinkedIn tile icon with white "in".
 - **Card Action**: Diagonal up-right arrow `↗` (`#425EF9`, 2.5px stroke) across all cards.
 - **Card Layout**: Compact horizontal padding and optimized icon size to display full numbers (`+91 81400 85842`, `+91 84012 84730`) completely.

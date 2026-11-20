@@ -119,32 +119,30 @@ html, body {
 
 /* ==========================================================================
    Background Bird Watermarks (50% Opacity)
+   Using User-Provided face.svg (top-right) and wing.svg (bottom-left)
    ========================================================================== */
-.bg-watermark-bird {
+.bg-watermark-face {
   position: absolute;
-  pointer-events: none;
+  top: clamp(20px, 4vh, 45px);
+  right: clamp(-36px, -6vw, -18px);
+  width: clamp(140px, 34vw, 210px);
+  height: auto;
   opacity: 0.5;
+  pointer-events: none;
   z-index: 1;
   user-select: none;
 }
 
-.bird-top-right {
-  top: clamp(15px, 3vh, 35px);
-  right: clamp(-35px, -6vw, -15px);
-  width: clamp(180px, 44vw, 250px);
-}
-
-.bird-bottom-left {
-  bottom: clamp(70px, 11vh, 105px);
-  left: clamp(-50px, -7vw, -25px);
-  width: clamp(190px, 46vw, 260px);
-  transform: rotate(-14deg);
-}
-
-.bg-watermark-bird svg {
-  width: 100%;
+.bg-watermark-wing {
+  position: absolute;
+  bottom: clamp(65px, 11vh, 105px);
+  left: clamp(-15px, -2vw, 0px);
+  width: clamp(140px, 34vw, 210px);
   height: auto;
-  display: block;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
 }
 
 .content-container {

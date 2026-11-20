@@ -187,6 +187,7 @@ function playSplash(gsap, root, isCancelled, finish) {
       whenPageReady().then(fly);
     },
   });
+  intro.timeScale(1.65);
 
   // White thread stitching choreography on Electric Blue backdrop
   draw(intro, "tail", 0.45, 0.85, "power2.inOut");
@@ -353,29 +354,29 @@ function initTouchContrastEngine() {
     ripples.push({
       x,
       y,
-      radius: isScraping ? 6 : 12,
-      maxRadius: isScraping ? (onFooter ? 34 : 40) : (onFooter ? 52 : 60),
+      radius: isScraping ? 3 : 5,
+      maxRadius: isScraping ? (onFooter ? 14 : 18) : (onFooter ? 20 : 25),
       alpha: onFooter ? 0.85 : 0.65,
-      decay: isScraping ? 0.042 : 0.026,
-      lineWidth: onFooter ? 2.5 : 2.0,
+      decay: isScraping ? 0.065 : 0.052,
+      lineWidth: onFooter ? 1.4 : 1.2,
       color,
     });
 
-    // Add fluid scrape particles
-    const count = isScraping ? 2 : 4;
+    // Add fluid scrape particles (smaller, faster micro-bubbles)
+    const count = isScraping ? 3 : 5;
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * (isScraping ? 2.2 : 3.4) + 0.5;
+      const speed = Math.random() * (isScraping ? 2.8 : 3.8) + 1.2;
       particles.push({
-        x: x + (Math.random() - 0.5) * 8,
-        y: y + (Math.random() - 0.5) * 8,
+        x: x + (Math.random() - 0.5) * 6,
+        y: y + (Math.random() - 0.5) * 6,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
-        size: Math.random() * (isScraping ? 3.0 : 4.5) + 2.0,
+        size: Math.random() * 1.8 + 1.2,
         alpha: onFooter ? 0.9 : 0.75,
-        decay: Math.random() * 0.025 + 0.02,
+        decay: Math.random() * 0.035 + 0.04,
         color,
-        glow: onFooter ? 10 : 8,
+        glow: onFooter ? 6 : 4,
       });
     }
 
@@ -391,7 +392,7 @@ function initTouchContrastEngine() {
     // Update & draw ripples
     for (let i = ripples.length - 1; i >= 0; i--) {
       const r = ripples[i];
-      r.radius += (r.maxRadius - r.radius) * 0.12;
+      r.radius += (r.maxRadius - r.radius) * 0.24;
       r.alpha -= r.decay;
 
       if (r.alpha <= 0) {
