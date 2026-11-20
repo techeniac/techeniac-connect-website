@@ -111,11 +111,13 @@ body {
 .bg-watermark-face {
   top: clamp(70px, 9.2vh, 102px);
   right: clamp(-36px, -6vw, -18px);
+  animation: watermarkSlideRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
 }
 
 .bg-watermark-wing {
   bottom: clamp(43px, calc(7vh + 3px), 78px);
   left: clamp(-30px, -4vw, -12px);
+  animation: watermarkSlideLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
 }
 
 .content-container {
@@ -648,6 +650,30 @@ body {
   }
 }
 
+@keyframes watermarkSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+}
+
+@keyframes watermarkSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+}
+
 /* Toast */
 .toast {
   position: fixed;
@@ -744,7 +770,9 @@ html[data-splash]:not(.cards-animate) .hero-title-accent,
 html[data-splash]:not(.cards-animate) .hero-subtitle,
 html[data-splash]:not(.cards-animate) .tagline-row,
 html[data-splash]:not(.cards-animate) .card,
-html[data-splash]:not(.cards-animate) .footer-wave-section {
+html[data-splash]:not(.cards-animate) .footer-wave-section,
+html[data-splash]:not(.cards-animate) .bg-watermark-face,
+html[data-splash]:not(.cards-animate) .bg-watermark-wing {
   animation: splash-cards-failsafe 0.01s linear 12s forwards !important;
   opacity: 0 !important;
   visibility: hidden !important;
