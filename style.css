@@ -63,6 +63,19 @@
   --shadow-card-hover: 0 12px 30px -4px rgba(66, 94, 249, 0.16), 0 4px 12px rgba(66, 94, 249, 0.08);
   
   --font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-card: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Touch & Scrape Contrast Animation Canvas Overlay
+   ========================================================================== */
+.touch-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
 }
 
 * {
@@ -154,25 +167,26 @@ html, body {
    ========================================================================== */
 .tagline-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
-  margin: 0 0 clamp(16px, 2.6vh, 24px);
+  margin: 0 0 clamp(14px, 2.2vh, 22px);
   user-select: none;
+  padding-left: 2px;
 }
 
 .tagline {
   font-family: var(--font-family);
-  font-size: clamp(28px, 4.2vh, 36px);
-  font-weight: 700;
-  letter-spacing: -0.6px;
-  line-height: 1.08;
+  font-size: clamp(34px, 4.8vh, 44px);
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  line-height: 1.12;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 2px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 4px;
   margin: 0;
 }
 
@@ -196,7 +210,7 @@ html, body {
 }
 
 /* ==========================================================================
-   Base Card Style (Crisp White with Soft Glass Elevation)
+   Base Card Style (Crisp White with Soft Glass Elevation & Touch Contrast)
    ========================================================================== */
 .card {
   display: flex;
@@ -210,6 +224,26 @@ html, body {
   overflow: hidden;
   user-select: none;
   cursor: pointer;
+  --touch-x: -100px;
+  --touch-y: -100px;
+}
+
+/* Dynamic contrast spotlight following finger touch / scraping */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 90px at var(--touch-x, -100px) var(--touch-y, -100px), rgba(66, 94, 249, 0.16) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card:hover::after,
+.card.is-touching::after {
+  opacity: 1;
 }
 
 .card:hover {
@@ -218,8 +252,11 @@ html, body {
   border-color: rgba(66, 94, 249, 0.25);
 }
 
-.card:active {
-  transform: translateY(0);
+.card:active,
+.card.is-touching {
+  transform: scale(0.985);
+  border-color: rgba(66, 94, 249, 0.35);
+  box-shadow: 0 4px 14px rgba(66, 94, 249, 0.18);
 }
 
 /* ==========================================================================
@@ -228,21 +265,21 @@ html, body {
 .cards-layout-group {
   display: flex;
   flex-direction: column;
-  gap: clamp(9px, 1.5vh, 12px);
+  gap: clamp(8px, 1.4vh, 11px);
   width: 100%;
 }
 
 .cards-grid-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(9px, 1.8vw, 12px);
+  gap: clamp(8px, 1.8vw, 11px);
   width: 100%;
 }
 
 .card-full {
   width: 100%;
-  min-height: clamp(62px, 8.2vh, 72px);
-  padding: clamp(13px, 1.8vh, 17px) clamp(14px, 3.2vw, 18px);
+  min-height: clamp(60px, 7.8vh, 70px);
+  padding: clamp(12px, 1.6vh, 16px) clamp(12px, 2.8vw, 16px);
   align-items: center;
   justify-content: space-between;
   animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
@@ -250,8 +287,8 @@ html, body {
 
 .card-grid-item {
   width: 100%;
-  min-height: clamp(60px, 8vh, 70px);
-  padding: clamp(12px, 1.7vh, 16px) clamp(11px, 2.5vw, 14px);
+  min-height: clamp(58px, 7.6vh, 68px);
+  padding: clamp(10px, 1.5vh, 14px) clamp(7px, 1.6vw, 10px);
   align-items: center;
   justify-content: space-between;
 }
@@ -279,15 +316,21 @@ html, body {
 .card-left {
   display: flex;
   align-items: center;
-  gap: clamp(8px, 2vw, 12px);
+  gap: 6px;
   flex: 1;
   min-width: 0;
   overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.card-full .card-left {
+  gap: 9px;
 }
 
 .icon-circle {
-  width: clamp(38px, 5vh, 44px);
-  height: clamp(38px, 5vh, 44px);
+  width: clamp(30px, 4.2vh, 34px);
+  height: clamp(30px, 4.2vh, 34px);
   border-radius: 50%;
   background: var(--color-blue-badge);
   display: flex;
@@ -297,29 +340,43 @@ html, body {
   transition: transform 0.22s ease, background 0.2s ease;
 }
 
+.card-full .icon-circle {
+  width: clamp(34px, 4.6vh, 38px);
+  height: clamp(34px, 4.6vh, 38px);
+}
+
 .card:hover .icon-circle {
   transform: scale(1.06);
   background: #E3EBFF;
 }
 
 .icon-circle svg {
-  width: clamp(19px, 2.5vh, 23px);
-  height: clamp(19px, 2.5vh, 23px);
+  width: clamp(15px, 2.1vh, 17px);
+  height: clamp(15px, 2.1vh, 17px);
   display: block;
+}
+
+.card-full .icon-circle svg {
+  width: clamp(17px, 2.3vh, 19px);
+  height: clamp(17px, 2.3vh, 19px);
 }
 
 .card-text-col {
   display: flex;
   flex-direction: column;
-  gap: 2.5px;
+  gap: 2px;
   min-width: 0;
+  flex: 1;
   overflow: hidden;
+  position: relative;
+  z-index: 2;
 }
 
 .micro-label {
-  font-size: clamp(9px, 1.25vh, 10.5px);
-  font-weight: 600;
-  letter-spacing: 0.8px;
+  font-family: var(--font-card);
+  font-size: clamp(8px, 1.1vh, 9px);
+  font-weight: 500;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--color-text-label);
   white-space: nowrap;
@@ -328,14 +385,21 @@ html, body {
 }
 
 .card-title {
-  font-size: clamp(13px, 1.8vh, 15px);
-  font-weight: 700;
+  font-family: var(--font-card);
+  font-size: clamp(10px, 1.35vh, 11.5px);
+  font-weight: 400;
   color: var(--color-text-dark);
-  letter-spacing: -0.2px;
-  line-height: 1.25;
+  letter-spacing: -0.25px;
+  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip; /* Ensures whole number is displayed cleanly without early dot trimming */
+}
+
+.card-full .card-title {
+  font-size: clamp(12px, 1.55vh, 13.5px);
+  font-weight: 450;
+  letter-spacing: -0.15px;
 }
 
 .action-arrow {
@@ -344,8 +408,21 @@ html, body {
   align-items: center;
   justify-content: center;
   transition: transform 0.22s ease;
-  margin-left: 6px;
+  margin-left: 2px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.action-arrow svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.card-full .action-arrow svg {
+  width: 16px;
+  height: 16px;
 }
 
 .card:hover .action-arrow {

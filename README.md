@@ -9,11 +9,16 @@ A mobile-first, responsive, non-scrollable digital connect web screen for **Tech
   - Obsidian Navy: `#000921`
   - Slate Label: `#7C8BA6`
   - Light Background: `#F4F7FD` / Radial Light Ice-Blue Gradient
-- **Typography**: **General Sans** (weights 400, 500, 600, 700) bundled in `./fonts/` for 100% offline support.
-- **Tagline**: Vertically stacked `Think` (`#000921`), `Build` (`#425EF9`), `Grow` (`#000921`) centered without punctuation.
+- **Typography**: 
+  - Brand & Tagline: **General Sans** (weights 400, 500, 600, 700) bundled in `./fonts/`.
+  - Cards & Labels: **Plus Jakarta Sans** (weights 400, 500) thin & clean typography so entire phone numbers and titles fit without truncation.
+- **Tagline**: Left-aligned stacked `Think` (`#000921`), `Build` (`#425EF9`), `Grow` (`#000921`) with enhanced letter spacing and punchy font size.
+- **Interactive Touch & Scrape Contrast Animation**:
+  - Upper white body: Touch/scrape creates dynamic glowing Electric Blue (`#425EF9`) fluid trails and ripples.
+  - Lower blue footer: Touch/scrape creates dynamic glowing Pure White (`#FFFFFF`) wave flares and ripples.
+  - Cards: Contrast radial spotlight tracking finger drag across cards.
 - **Card Action**: Diagonal up-right arrow `↗` (`#425EF9`, 2.5px stroke) across all cards.
-- **Card Heights**: Taller, touch-friendly cards with generous vertical padding and elevated icon badges.
-- **Header**: TechEniac logo elevated higher towards the top safe margin.
+- **Card Layout**: Compact horizontal padding and optimized icon size to display full numbers (`+91 81400 85842`, `+91 84012 84730`) completely.
 
 ---
 

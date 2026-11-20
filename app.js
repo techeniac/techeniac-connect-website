@@ -257,14 +257,224 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Card hover performance optimizations
+  // Card hover performance optimizations & interactive touch spotlight
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
+    const updateTouch = (clientX, clientY) => {
+      const rect = card.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      card.style.setProperty('--touch-x', `${x.toFixed(1)}px`);
+      card.style.setProperty('--touch-y', `${y.toFixed(1)}px`);
+    };
+
     card.addEventListener('mouseenter', () => {
       card.style.willChange = 'transform, box-shadow';
     });
     card.addEventListener('mouseleave', () => {
       card.style.willChange = 'auto';
+      card.classList.remove('is-touching');
     });
+
+    card.addEventListener('pointerdown', (e) => {
+      card.classList.add('is-touching');
+      updateTouch(e.clientX, e.clientY);
+    }, { passive: true });
+
+    card.addEventListener('pointermove', (e) => {
+      updateTouch(e.clientX, e.clientY);
+    }, { passive: true });
+
+    card.addEventListener('pointerup', () => {
+      card.classList.remove('is-touching');
+    }, { passive: true });
+
+    card.addEventListener('pointercancel', () => {
+      card.classList.remove('is-touching');
+    }, { passive: true });
   });
+
+  // Initialize Touch & Scrape Contrast Animation Engine
+  initTouchContrastEngine();
 });
+
+/* ==========================================================================
+   Interactive Touch & Scrape Contrast Animation Engine
+   Contrasting Colors:
+   - Upper White Canvas: Vibrant Electric Blue (#425EF9) fluid glow & ripples
+   - Blue Footer Section: Crisp Pure White (#FFFFFF) wave glow & flares
+   ========================================================================== */
+function initTouchContrastEngine() {
+  const canvas = document.getElementById('touch-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  let width = 0;
+  let height = 0;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.scale(dpr, dpr);
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const particles = [];
+  const ripples = [];
+  let isRunning = false;
+  let isTouching = false;
+  let lastPos = null;
+
+  const footerSection = document.querySelector('.footer-wave-section');
+
+  function isOverFooter(y) {
+    if (!footerSection) return false;
+    const rect = footerSection.getBoundingClientRect();
+    return y >= rect.top;
+  }
+
+  function addContrastEffect(x, y, isScraping = false) {
+    const onFooter = isOverFooter(y);
+
+    // Dynamic contrast colors:
+    // White in blue footer, Electric blue in white body
+    const color = onFooter
+      ? { r: 255, g: 255, b: 255 }      // White on Blue
+      : { r: 66, g: 94, b: 249 };        // Electric Blue on White
+
+    // Add ripple
+    ripples.push({
+      x,
+      y,
+      radius: isScraping ? 6 : 12,
+      maxRadius: isScraping ? (onFooter ? 34 : 40) : (onFooter ? 52 : 60),
+      alpha: onFooter ? 0.85 : 0.65,
+      decay: isScraping ? 0.042 : 0.026,
+      lineWidth: onFooter ? 2.5 : 2.0,
+      color,
+    });
+
+    // Add fluid scrape particles
+    const count = isScraping ? 2 : 4;
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * (isScraping ? 2.2 : 3.4) + 0.5;
+      particles.push({
+        x: x + (Math.random() - 0.5) * 8,
+        y: y + (Math.random() - 0.5) * 8,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: Math.random() * (isScraping ? 3.0 : 4.5) + 2.0,
+        alpha: onFooter ? 0.9 : 0.75,
+        decay: Math.random() * 0.025 + 0.02,
+        color,
+        glow: onFooter ? 10 : 8,
+      });
+    }
+
+    if (!isRunning) {
+      isRunning = true;
+      requestAnimationFrame(render);
+    }
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Update & draw ripples
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      const r = ripples[i];
+      r.radius += (r.maxRadius - r.radius) * 0.12;
+      r.alpha -= r.decay;
+
+      if (r.alpha <= 0) {
+        ripples.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${r.color.r}, ${r.color.g}, ${r.color.b}, ${r.alpha})`;
+      ctx.lineWidth = r.lineWidth;
+      ctx.shadowColor = `rgba(${r.color.r}, ${r.color.g}, ${r.color.b}, ${r.alpha * 0.7})`;
+      ctx.shadowBlur = 6;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Update & draw fluid particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.94;
+      p.vy *= 0.94;
+      p.alpha -= p.decay;
+
+      if (p.alpha <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${p.alpha})`;
+      ctx.shadowColor = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${p.alpha})`;
+      ctx.shadowBlur = p.glow;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    if (ripples.length > 0 || particles.length > 0) {
+      requestAnimationFrame(render);
+    } else {
+      isRunning = false;
+    }
+  }
+
+  // Pointer event listeners (desktops & touchscreens)
+  window.addEventListener('pointerdown', (e) => {
+    isTouching = true;
+    lastPos = { x: e.clientX, y: e.clientY };
+    addContrastEffect(e.clientX, e.clientY, false);
+  }, { passive: true });
+
+  window.addEventListener('pointermove', (e) => {
+    if (isTouching) {
+      if (!lastPos || Math.hypot(e.clientX - lastPos.x, e.clientY - lastPos.y) > 6) {
+        lastPos = { x: e.clientX, y: e.clientY };
+        addContrastEffect(e.clientX, e.clientY, true);
+      }
+    }
+  }, { passive: true });
+
+  window.addEventListener('pointerup', () => {
+    isTouching = false;
+    lastPos = null;
+  }, { passive: true });
+
+  window.addEventListener('pointercancel', () => {
+    isTouching = false;
+    lastPos = null;
+  }, { passive: true });
+
+  // Touch scrape support for mobile devices
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      const t = e.touches[0];
+      if (!lastPos || Math.hypot(t.clientX - lastPos.x, t.clientY - lastPos.y) > 6) {
+        lastPos = { x: t.clientX, y: t.clientY };
+        addContrastEffect(t.clientX, t.clientY, true);
+      }
+    }
+  }, { passive: true });
+}
