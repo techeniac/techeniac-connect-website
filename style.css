@@ -117,6 +117,36 @@ html, body {
   overflow-y: auto;
 }
 
+/* ==========================================================================
+   Background Bird Watermarks (50% Opacity)
+   ========================================================================== */
+.bg-watermark-bird {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 1;
+  user-select: none;
+}
+
+.bird-top-right {
+  top: clamp(15px, 3vh, 35px);
+  right: clamp(-35px, -6vw, -15px);
+  width: clamp(180px, 44vw, 250px);
+}
+
+.bird-bottom-left {
+  bottom: clamp(70px, 11vh, 105px);
+  left: clamp(-50px, -7vw, -25px);
+  width: clamp(190px, 46vw, 260px);
+  transform: rotate(-14deg);
+}
+
+.bg-watermark-bird svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .content-container {
   width: 100%;
   max-width: 440px;

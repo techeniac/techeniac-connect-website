@@ -17,6 +17,8 @@ A mobile-first, responsive, non-scrollable digital connect web screen for **Tech
   - Upper white body: Touch/scrape creates dynamic glowing Electric Blue (`#425EF9`) fluid trails and ripples.
   - Lower blue footer: Touch/scrape creates dynamic glowing Pure White (`#FFFFFF`) wave flares and ripples.
   - Cards: Contrast radial spotlight tracking finger drag across cards.
+- **Background Watermark Birds**: Two TechEniac bird outlines positioned on top-right and bottom-left at 50% opacity, matching brand aesthetic.
+- **LinkedIn Brand Asset**: Official, authentic rounded blue LinkedIn tile icon with white "in".
 - **Card Action**: Diagonal up-right arrow `↗` (`#425EF9`, 2.5px stroke) across all cards.
 - **Card Layout**: Compact horizontal padding and optimized icon size to display full numbers (`+91 81400 85842`, `+91 84012 84730`) completely.
 
