@@ -168,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ==========================================================================
    Interactive Touch & Scrape Contrast Animation Engine
+   No tap animation: responds fluidly as finger moves, scrapes, or scrolls
    ========================================================================== */
 function initTouchContrastEngine() {
   const canvas = document.getElementById("touch-canvas");
@@ -196,34 +197,34 @@ function initTouchContrastEngine() {
   const footer = document.querySelector(".footer-wave-section");
   const isOverFooter = (y) => Boolean(footer && y >= footer.getBoundingClientRect().top);
 
-  function addContrastEffect(x, y, isScraping = false) {
+  function addScrapeEffect(x, y) {
     const onFooter = isOverFooter(y);
     const rgb = onFooter ? "255, 255, 255" : "66, 94, 249";
 
     ripples.push({
       x, y,
-      radius: isScraping ? 3 : 5,
-      maxRadius: isScraping ? (onFooter ? 14 : 18) : (onFooter ? 20 : 25),
-      alpha: onFooter ? 0.85 : 0.65,
-      decay: isScraping ? 0.065 : 0.052,
-      lineWidth: onFooter ? 1.4 : 1.2,
+      radius: 2,
+      maxRadius: onFooter ? 12 : 16,
+      alpha: onFooter ? 0.8 : 0.6,
+      decay: 0.075,
+      lineWidth: 1.0,
       rgb,
     });
 
-    const count = isScraping ? 3 : 5;
+    const count = Math.floor(Math.random() * 2) + 2;
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * (isScraping ? 2.8 : 3.8) + 1.2;
+      const speed = Math.random() * 1.8 + 0.8;
       particles.push({
         x: x + (Math.random() - 0.5) * 6,
         y: y + (Math.random() - 0.5) * 6,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
-        size: Math.random() * 1.8 + 1.2,
-        alpha: onFooter ? 0.9 : 0.75,
-        decay: Math.random() * 0.035 + 0.04,
+        size: Math.random() * 1.6 + 1.0,
+        alpha: onFooter ? 0.85 : 0.75,
+        decay: Math.random() * 0.035 + 0.045,
         rgb,
-        glow: onFooter ? 6 : 4,
+        glow: onFooter ? 5 : 3,
       });
     }
 
@@ -257,8 +258,8 @@ function initTouchContrastEngine() {
       const p = particles[i];
       p.x += p.vx;
       p.y += p.vy;
-      p.vx *= 0.94;
-      p.vy *= 0.94;
+      p.vx *= 0.92;
+      p.vy *= 0.92;
       p.alpha -= p.decay;
       if (p.alpha <= 0) {
         particles.splice(i, 1);
@@ -266,9 +267,12 @@ function initTouchContrastEngine() {
       }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${p.rgb}, ${p.alpha})`;
-      ctx.shadowColor = `rgba(${p.rgb}, ${p.alpha})`;
+      ctx.strokeStyle = `rgba(${p.rgb}, ${p.alpha})`;
+      ctx.lineWidth = 0.75;
+      ctx.shadowColor = `rgba(${p.rgb}, ${p.alpha * 0.6})`;
       ctx.shadowBlur = p.glow;
+      ctx.stroke();
+      ctx.fillStyle = `rgba(${p.rgb}, ${p.alpha * 0.35})`;
       ctx.fill();
     }
     ctx.shadowBlur = 0;
@@ -280,26 +284,68 @@ function initTouchContrastEngine() {
     }
   }
 
-  const handleMove = (x, y) => {
-    if (isTouching && (!lastPos || Math.hypot(x - lastPos.x, y - lastPos.y) > 6)) {
+  const handleScrapeMove = (x, y) => {
+    if (!lastPos) {
       lastPos = { x, y };
-      addContrastEffect(x, y, true);
+      return;
     }
+    const dist = Math.hypot(x - lastPos.x, y - lastPos.y);
+    if (dist < 4) return;
+
+    const steps = Math.min(Math.max(1, Math.floor(dist / 9)), 6);
+    for (let i = 1; i <= steps; i++) {
+      const ix = lastPos.x + (x - lastPos.x) * (i / steps);
+      const iy = lastPos.y + (y - lastPos.y) * (i / steps);
+      addScrapeEffect(ix, iy);
+    }
+    lastPos = { x, y };
   };
 
+  // Touch and pointer tracking (Movement and scraping only, NO tap animation)
   window.addEventListener("pointerdown", (e) => {
     isTouching = true;
     lastPos = { x: e.clientX, y: e.clientY };
-    addContrastEffect(e.clientX, e.clientY, false);
   }, { passive: true });
 
-  window.addEventListener("pointermove", (e) => handleMove(e.clientX, e.clientY), { passive: true });
+  window.addEventListener("pointermove", (e) => {
+    if (isTouching) handleScrapeMove(e.clientX, e.clientY);
+  }, { passive: true });
 
   const endTouch = () => { isTouching = false; lastPos = null; };
   window.addEventListener("pointerup", endTouch, { passive: true });
   window.addEventListener("pointercancel", endTouch, { passive: true });
+  window.addEventListener("touchend", endTouch, { passive: true });
 
   window.addEventListener("touchmove", (e) => {
-    if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+    if (e.touches && e.touches[0]) {
+      handleScrapeMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  // Scroll scraping animation
+  const appWrapper = document.querySelector(".app-wrapper");
+  let lastScrollY = window.scrollY || 0;
+  let lastScrollTime = 0;
+  const onScroll = () => {
+    const now = performance.now();
+    if (now - lastScrollTime < 32) return;
+    lastScrollTime = now;
+    const currentY = window.scrollY || (appWrapper ? appWrapper.scrollTop : 0);
+    const diff = Math.abs(currentY - lastScrollY);
+    lastScrollY = currentY;
+    if (diff > 2) {
+      const sx = lastPos ? lastPos.x : (width * 0.5 + (Math.random() - 0.5) * 80);
+      const sy = lastPos ? lastPos.y : (height * 0.5 + (Math.random() - 0.5) * 60);
+      addScrapeEffect(sx, sy);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  if (appWrapper) {
+    appWrapper.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  window.addEventListener("wheel", (e) => {
+    handleScrapeMove(e.clientX, e.clientY);
   }, { passive: true });
 }
