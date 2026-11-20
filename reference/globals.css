@@ -1,9 +1,0 @@
-@import "tailwindcss";
-@config "../../tailwind.config.ts";
-
-@import "./theme.css";
-@import "./base.css";
-@import "./typography.css";
-@import "./animations.css";
-@import "./utilities.css";
-@import "./splash.css";
