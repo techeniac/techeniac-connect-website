@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                # TechEniac Digital Connect Web Screen
+# TechEniac Digital Connect Web Screen
 
 A mobile-first, responsive, non-scrollable digital connect web screen for **TechEniac**.
 
