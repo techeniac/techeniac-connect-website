@@ -15,27 +15,6 @@ const websiteCard: CardItemData = {
 
 const row2Cards: CardItemData[] = [
   {
-    id: 'linkedin',
-    microLabel: 'LINKEDIN',
-    title: 'TechEniac Services LLP.',
-    href: 'https://www.linkedin.com/company/techeniac-services-llp/',
-    isExternal: true,
-    tooltip: 'LinkedIn: TechEniac Services LLP.',
-    icon: 'linkedin',
-  },
-  {
-    id: 'instagram',
-    microLabel: 'INSTAGRAM',
-    title: 'life_at_techeniac',
-    href: 'https://www.instagram.com/life_at_techeniac',
-    isExternal: true,
-    tooltip: 'Instagram: life_at_techeniac',
-    icon: 'instagram',
-  },
-];
-
-const row3Cards: CardItemData[] = [
-  {
     id: 'sales',
     microLabel: 'SALES',
     title: '+91 81400 85842',
@@ -52,6 +31,27 @@ const row3Cards: CardItemData[] = [
     isExternal: false,
     tooltip: 'Call HR: +91 84012 84730',
     icon: 'users',
+  },
+];
+
+const row3Cards: CardItemData[] = [
+  {
+    id: 'linkedin',
+    microLabel: 'LINKEDIN',
+    title: 'TechEniac Services LLP.',
+    href: 'https://www.linkedin.com/company/techeniac-services-llp/',
+    isExternal: true,
+    tooltip: 'LinkedIn: TechEniac Services LLP.',
+    icon: 'linkedin',
+  },
+  {
+    id: 'instagram',
+    microLabel: 'INSTAGRAM',
+    title: 'life_at_techeniac',
+    href: 'https://www.instagram.com/life_at_techeniac',
+    isExternal: true,
+    tooltip: 'Instagram: life_at_techeniac',
+    icon: 'instagram',
   },
 ];
 
