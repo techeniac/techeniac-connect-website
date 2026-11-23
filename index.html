@@ -1,33 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>TechEniac | Good Ideas Deserve Great Conversations</title>
+    <meta
+      property="og:title"
+      content="TechEniac | Good Ideas Deserve Great Conversations"
+    />
+    <meta
+      name="description"
+      content="Good Ideas Deserve Great Conversations! TechEniac - AI SaaS Development Company for Startups. Think. Build. Grow."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function () {
+        try {
+          var q = location.search;
+          if (/[?&]splash=0(&|$)/.test(q)) return;
+          var isHome =
+            location.pathname === "/" ||
+            location.pathname.endsWith("/index.html") ||
+            location.protocol === "file:";
+          if (!isHome && !/[?&]splash(=1)?(&|$)/.test(q)) return;
+          if (
+            !/[?&]splash(=1)?(&|$)/.test(q) &&
+            (navigator.webdriver ||
+              matchMedia("(prefers-reduced-motion: reduce)").matches)
+          )
+            return;
+          document.documentElement.setAttribute("data-splash", "");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>TechEniac | Let's Talk Tech!!</title>
-  <meta name="description"
-    content="Let's Talk Tech!! TechEniac - AI SaaS Development Company for Startups. Think. Build. Grow.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet">
-  <script>
-    (function () {
-      try {
-        var q = location.search;
-        if (/[?&]splash=0(&|$)/.test(q)) return;
-        var isHome = location.pathname === "/" || location.pathname.endsWith("/index.html") || location.protocol === "file:";
-        if (!isHome && !/[?&]splash(=1)?(&|$)/.test(q)) return;
-        if (!/[?&]splash(=1)?(&|$)/.test(q) && (navigator.webdriver || matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-        document.documentElement.setAttribute("data-splash", "");
-      } catch (e) { }
-    })();
-  </script>
-</head>
-
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
