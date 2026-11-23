@@ -31,7 +31,7 @@ export const Footer: React.FC<FooterProps> = ({ onAddressClick }) => {
 
       <div className="footer-content">
         <a
-          href="https://maps.google.com/?q=1501+Westport,+near+Taj+Hotel,+Sindhubhavan+Road,+Ahmedabad,+Gujarat+380059"
+          href="https://maps.app.goo.gl/b2dSdtUVqHBB3xsy8"
           target="_blank"
           rel="noopener noreferrer"
           className="footer-address-link"
