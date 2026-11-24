@@ -37,7 +37,7 @@ A mobile-first, responsive, non-scrollable digital connect web screen for **Tech
    - **Hero Full-Width Card**:
      - **Our Website**: `techeniac.com` (`https://techeniac.com/`) with globe icon & diagonal arrow `↗`.
    - **Row 2 (2 Columns)**:
-     - **Contact**: `+91 81400 85842` (`tel:+918140085842`) with phone icon & diagonal arrow `↗`.
+     - **Inquiry**: `+91 81400 85842` (`tel:+918140085842`) with phone icon & diagonal arrow `↗`.
      - **Career**: `+91 84012 84730` (`tel:+918401284730`) with users icon & diagonal arrow `↗`.
    - **Row 3 (2 Columns)**:
      - **LinkedIn**: `TechEniac Services LLP.` (`https://www.linkedin.com/company/techeniac-services-llp/`) & diagonal arrow `↗`.

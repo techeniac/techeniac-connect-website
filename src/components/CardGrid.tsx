@@ -15,12 +15,12 @@ const websiteCard: CardItemData = {
 
 const row2Cards: CardItemData[] = [
   {
-    id: 'contact',
-    microLabel: 'CONTACT',
+    id: 'inquiry',
+    microLabel: 'INQUIRY',
     title: '+91 81400 85842',
     href: 'tel:+918140085842',
     isExternal: false,
-    tooltip: 'Contact: +91 81400 85842',
+    tooltip: 'Inquiry: +91 81400 85842',
     icon: 'phone',
   },
   {
@@ -82,7 +82,7 @@ export const CardGrid: React.FC = () => {
       {/* Row 1: Website Full Width */}
       <CardItem data={websiteCard} />
 
-      {/* Row 2: Contact & Career */}
+      {/* Row 2: Inquiry & Career */}
       <div className="cards-grid-row">
         {row2Cards.map((c) => (
           <CardItem key={c.id} data={c} />
