@@ -15,21 +15,21 @@ const websiteCard: CardItemData = {
 
 const row2Cards: CardItemData[] = [
   {
-    id: 'sales',
-    microLabel: 'SALES',
+    id: 'contact',
+    microLabel: 'CONTACT',
     title: '+91 81400 85842',
     href: 'tel:+918140085842',
     isExternal: false,
-    tooltip: 'Call Sales: +91 81400 85842',
+    tooltip: 'Contact: +91 81400 85842',
     icon: 'phone',
   },
   {
-    id: 'hr',
-    microLabel: 'HR',
+    id: 'career',
+    microLabel: 'CAREER',
     title: '+91 84012 84730',
     href: 'tel:+918401284730',
     isExternal: false,
-    tooltip: 'Call HR: +91 84012 84730',
+    tooltip: 'Career: +91 84012 84730',
     icon: 'users',
   },
 ];
@@ -82,14 +82,14 @@ export const CardGrid: React.FC = () => {
       {/* Row 1: Website Full Width */}
       <CardItem data={websiteCard} />
 
-      {/* Row 2: LinkedIn & Instagram */}
+      {/* Row 2: Contact & Career */}
       <div className="cards-grid-row">
         {row2Cards.map((c) => (
           <CardItem key={c.id} data={c} />
         ))}
       </div>
 
-      {/* Row 3: Sales & HR */}
+      {/* Row 3: LinkedIn & Instagram */}
       <div className="cards-grid-row">
         {row3Cards.map((c) => (
           <CardItem key={c.id} data={c} />
